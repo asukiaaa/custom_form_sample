@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7.17
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./docker/mysql/volumes:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password4Dev
