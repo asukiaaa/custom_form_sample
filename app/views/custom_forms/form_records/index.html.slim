@@ -1,0 +1,20 @@
+p#notice
+  = notice
+h1 Form Records
+table
+  thead
+    tr
+      th Custom form
+      th Data
+      th[colspan="2"]
+  tbody
+    - @form_records.each do |form_record|
+      tr
+        td= form_record.custom_form.name
+        td= form_record.data
+        td= link_to 'Show', [@custom_form, form_record]
+        td= link_to 'Destroy', [@custom_form, form_record], method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Form Record', [:new, @custom_form, :form_record]
+'
+= link_to 'Back to custom form', @custom_form

@@ -1,0 +1,15 @@
+= form_with(model: custom_form, local: true) do |form|
+  - if custom_form.errors.any?
+    #error_explanation
+      h2
+        = pluralize(custom_form.errors.count, "error")
+        |  prohibited this custom_form from being saved:
+      ul
+        - custom_form.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = form.label :name
+    = form.text_field :name, id: :custom_form_name
+  .actions
+    = form.submit

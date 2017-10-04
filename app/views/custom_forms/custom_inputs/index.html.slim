@@ -1,0 +1,29 @@
+p#notice
+  = notice
+h1 Custom Inputs
+table
+  thead
+    tr
+      th Label
+      th Required
+      th Input type
+      th Order
+      th Options
+      th Comment
+      th[colspan="3"]
+  tbody
+    - @custom_inputs.each do |custom_input|
+      tr
+        td= custom_input.label
+        td= custom_input.required
+        td= custom_input.input_type
+        td= custom_input.order
+        td= custom_input.options
+        td= custom_input.comment
+        td= link_to 'Show', [@custom_form, custom_input]
+        td= link_to 'Edit', [:edit, @custom_form, custom_input]
+        td= link_to 'Destroy', [@custom_form, custom_input], method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Custom Input', [:new, @custom_form, :custom_input]
+'
+= link_to 'Back to custom form', @custom_form

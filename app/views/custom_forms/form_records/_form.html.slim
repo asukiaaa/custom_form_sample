@@ -1,0 +1,14 @@
+= simple_form_for(@record_data, url: [@custom_form, @form_record]) do |f|
+  - if @record_data.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@record_data.errors.count, "error")
+        |  prohibited this form_record from being saved:
+      ul
+        - @record_data.errors.full_messages.each do |message|
+          li
+            = message
+  - @custom_form.custom_inputs.each do |item|
+    = custom_form f, item
+  .actions
+    = f.submit

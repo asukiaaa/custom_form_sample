@@ -1,0 +1,5 @@
+- label_text = item.label
+- label_text = label_text + '（必須）' if item.required
+.form-group
+  = f.label label_text
+  == contents

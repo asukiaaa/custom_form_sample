@@ -1,0 +1,30 @@
+= form_for @custom_input, url: [@custom_form, @custom_input] do |form|
+  - if @custom_input.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@custom_input.errors.count, "error")
+        |  prohibited this custom_input from being saved:
+      ul
+        - @custom_input.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = form.label :label
+    = form.text_field :label, id: :custom_input_label
+  .field
+    = form.label :required
+    = form.check_box :required, id: :custom_input_required
+  .field
+    = @custom_input.input_type
+    = form.select :input_type, CustomInput::INPUT_TYPE_OPTIONS.invert, include_blank: '選択してください'
+  .field
+    = form.label :order
+    = form.number_field :order, id: :custom_input_order
+  .field
+    = form.label :options
+    = form.text_area :options, id: :custom_input_options
+  .field
+    = form.label :comment
+    = form.text_area :comment, id: :custom_input_comment
+  .actions
+    = form.submit

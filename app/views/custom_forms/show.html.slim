@@ -1,0 +1,14 @@
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @custom_form.name
+
+= link_to 'Records', [@custom_form, :form_records]
+'
+= link_to 'Custom Inputs', [@custom_form, :custom_inputs]
+'
+= link_to 'Edit', edit_custom_form_path(@custom_form)
+'
+= link_to 'Back', custom_forms_path

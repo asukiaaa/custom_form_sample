@@ -1,0 +1,11 @@
+p#notice
+  = notice
+p
+  strong
+    | Custom form:
+  = @custom_form.name
+p
+  strong
+    | Data:
+  = @form_record.data
+= link_to 'Back', [@custom_form, :form_records]
