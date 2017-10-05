@@ -1,13 +1,25 @@
 p#notice
   = notice
-p
-  strong
-    | Name:
-  = @custom_form.name
+
+dl
+  dt Name
+  dd= @custom_form.name
+  dt 項目一覧
+  dd
+    - @custom_form.custom_inputs.each do |i|
+      dl
+        dt ラベル名
+        dd= i.label
+        dt 必須
+        dd= i.required ? '○' : '-'
+        dt 形式
+        dd= CustomInput::INPUT_TYPE_OPTIONS[i.input_type]
+        dt オプション
+        dd= i.options
+        dt 注釈
+        dd= i.comment
 
 = link_to 'Records', [@custom_form, :form_records]
-'
-= link_to 'Custom Inputs', [@custom_form, :custom_inputs]
 '
 = link_to 'Edit', edit_custom_form_path(@custom_form)
 '

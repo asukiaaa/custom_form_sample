@@ -1,74 +1,86 @@
 class CustomFormsController < ApplicationController
   before_action :set_custom_form, only: [:show, :edit, :update, :destroy]
+  before_action :set_blank_custom_input
 
-  # GET /custom_forms
-  # GET /custom_forms.json
   def index
     @custom_forms = CustomForm.all
   end
 
-  # GET /custom_forms/1
-  # GET /custom_forms/1.json
   def show
   end
 
-  # GET /custom_forms/new
   def new
     @custom_form = CustomForm.new
+    @custom_inputs = [@blank_custom_input]
   end
 
-  # GET /custom_forms/1/edit
   def edit
+    @custom_inputs = @custom_form.custom_inputs
   end
 
-  # POST /custom_forms
-  # POST /custom_forms.json
   def create
-    @custom_form = CustomForm.new(custom_form_params)
+    @custom_form = CustomForm.new()
 
-    respond_to do |format|
-      if @custom_form.save
-        format.html { redirect_to @custom_form, notice: 'Custom form was successfully created.' }
-        format.json { render :show, status: :created, location: @custom_form }
-      else
-        format.html { render :new }
-        format.json { render json: @custom_form.errors, status: :unprocessable_entity }
-      end
+    begin
+      validate_and_save
+    rescue
+      set_blank_custom_input
+      render :new
+      return
+    else
+      redirect_to @custom_form
     end
   end
 
-  # PATCH/PUT /custom_forms/1
-  # PATCH/PUT /custom_forms/1.json
   def update
-    respond_to do |format|
-      if @custom_form.update(custom_form_params)
-        format.html { redirect_to @custom_form, notice: 'Custom form was successfully updated.' }
-        format.json { render :show, status: :ok, location: @custom_form }
-      else
-        format.html { render :edit }
-        format.json { render json: @custom_form.errors, status: :unprocessable_entity }
-      end
+    begin
+      validate_and_save
+    rescue
+      set_blank_custom_input
+      render :edit
+      return
     end
+    redirect_to @custom_form
   end
 
-  # DELETE /custom_forms/1
-  # DELETE /custom_forms/1.json
   def destroy
     @custom_form.destroy
-    respond_to do |format|
-      format.html { redirect_to custom_forms_url, notice: 'Custom form was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to custom_forms_url
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_custom_form
-      @custom_form = CustomForm.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def custom_form_params
-      params.require(:custom_form).permit(:name)
+  def validate_and_save
+    ActiveRecord::Base.transaction do
+      @custom_form.assign_attributes(custom_form_params)
+      @custom_form.custom_inputs.destroy_all
+      @custom_form.valid?
+      @custom_inputs = custom_inputs_params.map { |input_params| @custom_form.custom_inputs.new(input_params) }
+      @custom_inputs.map(&:valid?)
+      @custom_form.save!
+      @custom_inputs.map(&:save!)
     end
+  end
+
+  def set_custom_form
+    @custom_form = CustomForm.find(params[:id])
+  end
+
+  def set_blank_custom_input
+    @blank_custom_input = CustomInput.new
+  end
+
+  def custom_form_params
+    params.require(:custom_form).permit(:name)
+  end
+
+  def raw_custom_inputs_params
+    params.require(:custom_input).map { |p| p.permit(:label, :required, :input_type, :options, :comment) }
+  end
+
+  def custom_inputs_params
+    raw_custom_inputs_params.each_with_index.map do |input_params, i|
+      input_params.merge({order: i})
+    end
+  end
 end

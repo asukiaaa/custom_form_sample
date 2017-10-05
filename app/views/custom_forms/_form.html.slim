@@ -1,15 +1,35 @@
-= form_with(model: custom_form, local: true) do |form|
-  - if custom_form.errors.any?
+= simple_form_for @custom_form do |f|
+  - if @custom_form.errors.any?
     #error_explanation
       h2
-        = pluralize(custom_form.errors.count, "error")
+        = pluralize(@custom_form.errors.count, "error")
         |  prohibited this custom_form from being saved:
       ul
-        - custom_form.errors.full_messages.each do |message|
-          li
-            = message
-  .field
-    = form.label :name
-    = form.text_field :name, id: :custom_form_name
+        - @custom_form.errors.full_messages.each do |message|
+          li= message
+  = f.label :name
+  = f.text_field :name
+
+  table.table-custom-inputs
+    thead
+      tr
+        th ラベル名
+        th 必須
+        th 種別
+        th 備考
+        th 順番
+        th 削除
+    tbody
+      - @custom_inputs.each do |custom_input|
+        = render 'tr_custom_input_forms', custom_input: custom_input
+  a.edit-custom-inputs[href='#' data-action='add'] 項目を追加
   .actions
-    = form.submit
+    = f.submit
+
+/ out of form
+table.table-blank-value[style='display: none']
+  tbody
+    = render 'tr_custom_input_forms', custom_input: @blank_custom_input
+
+javascript:
+  CustomFormSetting.initTable()
