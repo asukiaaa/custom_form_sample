@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    models:
+      custom_form: カスタムフォーム
+    attributes:
+      custom_form:
+        name: mフォーム名
+        form_top_html: フォーム上説明文
+        form_bottom_html: フォーム下部説明文
+        confirmation_top_html: 確認上部説明文
+        confirmation_bottom_html: 確認下部説明文
+        finished_html: 確認画面表示文

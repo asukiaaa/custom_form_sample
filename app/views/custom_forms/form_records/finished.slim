@@ -1,0 +1,5 @@
+- fin = @custom_form.finished_html
+= fin.present? ? fin.html_safe : '内容を送信しました。'
+p
+  = link_to 'トップページ', root_path, class: 'btn btn-secondary mr-1'
+  = link_to '投稿内容の確認', [@custom_form, @form_record], class: 'btn btn-secondary'

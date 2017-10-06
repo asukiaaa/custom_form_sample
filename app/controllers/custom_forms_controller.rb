@@ -71,7 +71,7 @@ class CustomFormsController < ApplicationController
   end
 
   def custom_form_params
-    params.require(:custom_form).permit(:name)
+    params.require(:custom_form).permit(:name, :form_top_html, :form_bottom_html, :confirmation_top_html, :confirmation_bottom_html, :finished_html)
   end
 
   def raw_custom_inputs_params

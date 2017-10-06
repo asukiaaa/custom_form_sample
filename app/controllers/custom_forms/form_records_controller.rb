@@ -1,6 +1,6 @@
 class CustomForms::FormRecordsController < ApplicationController
   before_action :set_custom_form
-  before_action :set_form_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_form_record, only: [:show, :finished, :destroy]
 
   def index
     @form_records = @custom_form.form_records
@@ -14,18 +14,25 @@ class CustomForms::FormRecordsController < ApplicationController
     @record_data = @custom_form.new
   end
 
-  def create
-    @form_record = @custom_form.form_records.new
-    @record_data = @custom_form.new
-    @record_data.input_attributes = form_record_params
+  def confirmation
+    @record_data = new_record_data
+    unless @record_data.valid?
+      render :new
+    end
+  end
 
-    if @record_data.valid?
+  def create
+    @record_data = new_record_data
+    if @record_data.valid? and params[:edit_again].blank?
       @form_record.data = @record_data.to_data.to_json
       @form_record.save
-      redirect_to [@custom_form, @form_record]
+      redirect_to [:finished, @custom_form, @form_record]
     else
       render :new
     end
+  end
+
+  def finished
   end
 
   def destroy
@@ -45,5 +52,12 @@ class CustomForms::FormRecordsController < ApplicationController
 
   def form_record_params
     params.require(:input).permit(@custom_form.custom_inputs.map(&:params_permits).inject(&:+))
+  end
+
+  def new_record_data
+    @form_record = @custom_form.form_records.new
+    record_data = @custom_form.new
+    record_data.input_attributes = form_record_params
+    record_data
   end
 end

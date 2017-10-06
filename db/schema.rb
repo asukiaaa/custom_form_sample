@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004033557) do
+ActiveRecord::Schema.define(version: 20171006074108) do
 
   create_table "custom_forms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+    t.text "form_top_html"
+    t.text "form_bottom_html"
+    t.text "confirmation_top_html"
+    t.text "confirmation_bottom_html"
+    t.text "finished_html"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "top_content"
+    t.text "bottom_content"
   end
 
   create_table "custom_inputs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

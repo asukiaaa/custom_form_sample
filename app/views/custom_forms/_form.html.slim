@@ -22,6 +22,12 @@
     tbody
       - @custom_inputs.each do |custom_input|
         = render 'tr_custom_input_forms', custom_input: custom_input
+
+  - %i[form_top_html form_bottom_html confirmation_top_html confirmation_bottom_html finished_html].each do |key|
+    .form-group
+      = f.label key, CustomForm.human_attribute_name(key)
+      = f.text_area key, class: 'form-control'
+
   p
     a.edit-custom-inputs.btn.btn-secondary.mr-1[href='#' data-action='add'] 項目を追加
     = f.submit class: 'btn btn-primary pull right'

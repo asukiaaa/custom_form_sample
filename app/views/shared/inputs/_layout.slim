@@ -3,3 +3,4 @@
 .form-group
   = f.label item.attr_names.first, label_text
   == contents
+  = item.comment.html_safe if item.comment.present?

@@ -1,0 +1,22 @@
+- top = @custom_form.confirmation_top_html
+= top.html_safe if top.present?
+
+table.table.table-striped
+  thead
+    th 名前
+    th 値
+  tbody
+    - @record_data.to_data.each do |data|
+      tr
+        td= data[:label]
+        td= simple_format(data[:value])
+
+= simple_form_for(@record_data, url: [@custom_form, @form_record], method: :post) do |f|
+  .div[style='display:none']
+    = render partial: 'inputs', locals: { f: f, custom_inputs: @custom_form.custom_inputs }
+  .form-group
+    = f.submit '編集する', name: :edit_again, class: 'btn btn-secondary mr-1'
+    = f.submit '内容を送信する', name: :submit, class: 'btn btn-primary'
+
+- bottom = @custom_form.confirmation_bottom_html
+= bottom.html_safe if bottom.present?

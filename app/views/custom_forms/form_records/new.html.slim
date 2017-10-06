@@ -1,3 +1,22 @@
 h1= @custom_form.name
 p= link_to 'Index', [@custom_form, :form_records], class: 'btn btn-secondary'
-= render 'form'
+
+- top = @custom_form.form_top_html
+= top.html_safe if top.present?
+
+= simple_form_for(@record_data, url: [:confirmation, @custom_form, :form_records], method: :post) do |f|
+  - if @record_data.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@record_data.errors.count, "error")
+        |  prohibited this form_record from being saved:
+      ul
+        - @record_data.errors.full_messages.each do |message|
+          li
+            = message
+  = render partial: 'inputs', locals: { f: f, custom_inputs: @custom_form.custom_inputs }
+  .form-group
+    = f.submit '確認に進む', class: 'btn btn-primary'
+
+- bottom = @custom_form.form_bottom_html
+= bottom.html_safe if bottom.present?

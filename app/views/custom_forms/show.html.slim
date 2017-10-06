@@ -2,7 +2,7 @@ p#notice
   = notice
 
 dl
-  dt フォーム名
+  dt= CustomForm.human_attribute_name(:name)
   dd= @custom_form.name
   dt 項目一覧
   dd
@@ -21,6 +21,9 @@ dl
             td= CustomInput::INPUT_TYPE_OPTIONS[i.input_type]
             td= i.options
             td= i.comment
+  - %i[form_top_html form_bottom_html confirmation_top_html confirmation_bottom_html finished_html].each do |key|
+    dt= CustomForm.human_attribute_name(key)
+    dd= @custom_form.send(key).html_safe
 
 p
   = link_to 'Add record', [:new, @custom_form, :form_record], class: 'btn btn-secondary mr-1'
