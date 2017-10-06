@@ -14,13 +14,15 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: password4Dev
-  host: 127.0.0.1
-  port: 13306
+  password:
+  host: localhost
 
 development:
   <<: *default
   database: custom_forms_sample_development
+  password: password4Dev
+  host: 127.0.0.1
+  port: 13306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -50,6 +52,7 @@ test:
 #
 production:
   <<: *default
-  database: custom_forms_sample_production
-  username: custom_forms_sample
-  password: <%= ENV['CUSTOM_FORMS_SAMPLE_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_SCHEMA'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
