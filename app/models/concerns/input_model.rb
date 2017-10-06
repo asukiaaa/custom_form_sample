@@ -21,7 +21,8 @@ module InputModel
       # attributes= の代わり
       def input_attributes=(hash)
         hash.each do |key, value|
-          self.send("#{key}=", ERB::Util.html_escape(value))
+          value = value.delete_if(&:blank?) if value.is_a?(Array)
+          self.send("#{key}=", value)
         end
       end
 

@@ -4,12 +4,16 @@ class CustomInput < ApplicationRecord
     text_area: { name: 'テキストエリア（複数行）' },
     last_first_name: { name: '姓名別氏名' },
     kana_text_field: { name: 'テキスト（カタカナ）',
-                       validate_kana_format: true }
+                       validate_kana_format: true },
+    select: { name: 'セレクト（単一選択）' },
+    radio_buttons: { name: 'ラジオ（単一選択）' },
+    check_boxes: { name: 'チェックボックス（複数選択）' },
   }
   INPUT_TYPE_OPTIONS = INPUT_TYPES.map { |k, v| [k.to_s, v[:name]] }.to_h
 
   belongs_to :custom_form
   validates_presence_of :label, :input_type
+  validates_presence_of :options, if: 'input_type == "select"'
 
   def attr_names
     base_name = "custom_input_#{id}"
@@ -18,6 +22,16 @@ class CustomInput < ApplicationRecord
       [base_name + '_last_name', base_name + '_first_name']
     else
       Array(base_name)
+    end
+  end
+
+  def params_permits
+    attr_names.map do |n|
+      if input_type == 'check_boxes'
+        {n => []}
+      else
+        n
+      end
     end
   end
 

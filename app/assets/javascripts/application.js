@@ -76,7 +76,7 @@ var CustomFormSettingClass = function() {
       })
     },
     initTable: function() {
-      $(tableSelector).find(trSelector).each(function() { updateOptionsBox($(this)) })
+      $(trSelector).each(function() { updateOptionsBox($(this)) })
     }
   }
 }

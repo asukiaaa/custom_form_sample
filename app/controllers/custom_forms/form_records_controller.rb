@@ -44,6 +44,6 @@ class CustomForms::FormRecordsController < ApplicationController
   end
 
   def form_record_params
-    params.require(:input).permit(@custom_form.custom_inputs.map { |i| i.attr_names }.inject(&:+))
+    params.require(:input).permit(@custom_form.custom_inputs.map(&:params_permits).inject(&:+))
   end
 end
