@@ -7,10 +7,10 @@
       ul
         - @custom_form.errors.full_messages.each do |message|
           li= message
-  = f.label :name
-  = f.text_field :name
+  = f.label :name, "フィールド名"
+  = f.text_field :name, class: 'form-control'
 
-  table.table-custom-inputs
+  table.table-custom-inputs.table.table-striped
     thead
       tr
         th ラベル名
@@ -22,9 +22,9 @@
     tbody
       - @custom_inputs.each do |custom_input|
         = render 'tr_custom_input_forms', custom_input: custom_input
-  a.edit-custom-inputs[href='#' data-action='add'] 項目を追加
-  .actions
-    = f.submit
+  p
+    a.edit-custom-inputs.btn.btn-secondary.mr-1[href='#' data-action='add'] 項目を追加
+    = f.submit class: 'btn btn-primary pull right'
 
 / out of form
 table.table-blank-value[style='display: none']

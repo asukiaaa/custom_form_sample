@@ -10,5 +10,5 @@
             = message
   - @custom_form.custom_inputs.each do |item|
     = custom_form f, item
-  .actions
-    = f.submit
+  .form-group
+    = f.submit class: 'btn btn-primary'

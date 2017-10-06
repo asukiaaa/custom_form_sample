@@ -2,25 +2,28 @@ p#notice
   = notice
 
 dl
-  dt Name
+  dt フォーム名
   dd= @custom_form.name
   dt 項目一覧
   dd
-    - @custom_form.custom_inputs.each do |i|
-      dl
-        dt ラベル名
-        dd= i.label
-        dt 必須
-        dd= i.required ? '○' : '-'
-        dt 形式
-        dd= CustomInput::INPUT_TYPE_OPTIONS[i.input_type]
-        dt オプション
-        dd= i.options
-        dt 注釈
-        dd= i.comment
+    table.table.table-striped
+      thead
+        th ラベル名
+        th 必須
+        th 形式
+        th オプション
+        th 注釈
+      tbody
+        - @custom_form.custom_inputs.each do |i|
+          tr
+            td= i.label
+            td= i.required ? '○' : '-'
+            td= CustomInput::INPUT_TYPE_OPTIONS[i.input_type]
+            td= i.options
+            td= i.comment
 
-= link_to 'Records', [@custom_form, :form_records]
-'
-= link_to 'Edit', edit_custom_form_path(@custom_form)
-'
-= link_to 'Back', custom_forms_path
+p
+  = link_to 'Add record', [:new, @custom_form, :form_record], class: 'btn btn-secondary mr-1'
+  = link_to 'See records', [@custom_form, :form_records], class: 'btn btn-secondary mr-1'
+  = link_to 'Edit', edit_custom_form_path(@custom_form), class: 'btn btn-secondary mr-1'
+  = link_to 'Index', custom_forms_path, class: 'btn btn-secondary'

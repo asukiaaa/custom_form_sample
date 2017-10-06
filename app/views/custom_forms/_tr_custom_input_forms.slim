@@ -1,13 +1,12 @@
 tr.tr-custom-input-forms
-  td= text_field_tag 'custom_input[][label]', custom_input.label
-  td= check_box_tag 'custom_input[][required]', custom_input.required
+  td= text_field_tag 'custom_input[][label]', custom_input.label, class: 'form-control'
+  td= check_box_tag 'custom_input[][required]', custom_input.required, class: 'form-control'
   td
-    div= select_tag 'custom_input[][input_type]', options_for_select(CustomInput::INPUT_TYPE_OPTIONS.invert, custom_input.input_type), include_blank: '選択してください'
-    div.options-box= text_area_tag 'custom_input[][options]', custom_input.options, placeholder: '「,」区切りでオプションを設定できます'
-  td= text_area_tag 'custom_input[][comment]', custom_input.comment
+    div= select_tag 'custom_input[][input_type]', options_for_select(CustomInput::INPUT_TYPE_OPTIONS.invert, custom_input.input_type), include_blank: '選択してください', class: 'form-control'
+    div.options-box= text_area_tag 'custom_input[][options]', custom_input.options, placeholder: '「,」区切りでオプションを設定できます', class: 'form-control'
+  td= text_area_tag 'custom_input[][comment]', custom_input.comment, class: 'form-control'
   td
-    a.edit-custom-inputs[href='#' data-action='up'] up
-    '
-    a.edit-custom-inputs[href='#' data-action='down'] down
+    a.edit-custom-inputs.btn.btn-secondary.btn-sm.mr-1.mb-1[href='#' data-action='up'] up
+    a.edit-custom-inputs.btn.btn-secondary.btn-sm[href='#' data-action='down'] down
   td
-    a.edit-custom-inputs[href='#' data-action='delete'] delete
+    a.edit-custom-inputs.btn.btn-secondary.btn-sm[href='#' data-action='delete'] delete

@@ -1,20 +1,18 @@
 p#notice
   = notice
-h1 Form Records
-table
+h1 #{@custom_form.name} records
+p= link_to 'Add Form Record', [:new, @custom_form, :form_record], class: 'btn btn-primary'
+table.table.table-striped
   thead
     tr
-      th Custom form
       th Data
-      th[colspan="2"]
+      th Action
   tbody
     - @form_records.each do |form_record|
       tr
-        td= form_record.custom_form.name
         td= form_record.data
-        td= link_to 'Show', [@custom_form, form_record]
-        td= link_to 'Destroy', [@custom_form, form_record], method: :delete, data: { confirm: 'Are you sure?' }
+        td
+          = link_to 'Show', [@custom_form, form_record], class: 'btn btn-secondary btn-sm mr-1'
+          = link_to 'Destroy', [@custom_form, form_record], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning btn-sm'
 br
-= link_to 'New Form Record', [:new, @custom_form, :form_record]
-'
-= link_to 'Back to custom form', @custom_form
+p= link_to 'Back to custom form', @custom_form, class: 'btn btn-secondary'
