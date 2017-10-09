@@ -4,7 +4,7 @@ class CustomInput < ApplicationRecord
     text_area: { name: 'テキストエリア（複数行）' },
     last_first_name: { name: '姓名別氏名' },
     kana_text_field: { name: 'テキスト（カタカナ）',
-                       validate_kana_format: true },
+                       validates_kana_format: true },
     select: { name: 'セレクト（単一選択）' },
     radio_buttons: { name: 'ラジオ（単一選択）' },
     check_boxes: { name: 'チェックボックス（複数選択）' },
@@ -48,7 +48,7 @@ class CustomInput < ApplicationRecord
       input.attr_names.map do |attr_name|
         attr_accessor attr_name
         validates_presence_of attr_name if input.required
-        validates attr_name, format: { with: Regexp.new( /\A[ァ-ンー－]+\z/), allow_blank: true } if type_info[:validate_kana_format]
+        validates attr_name, format: { with: Regexp.new( /\A[ァ-ンー－]+\z/), allow_blank: true } if type_info[:validates_kana_format]
       end
     }
   end
