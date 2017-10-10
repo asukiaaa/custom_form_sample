@@ -1,6 +1,6 @@
 tr.tr-custom-input-forms
   td= text_field_tag 'custom_input[][label]', custom_input.label, class: 'form-control'
-  td= check_box_tag 'custom_input[][required]', custom_input.required, class: 'form-control'
+  td= check_box_tag 'custom_input[][required]', true, custom_input.required, class: 'form-control'
   td
     div= select_tag 'custom_input[][input_type]', options_for_select(CustomInput::INPUT_TYPE_OPTIONS.invert, custom_input.input_type), include_blank: '選択してください', class: 'form-control'
     div.options-box= text_area_tag 'custom_input[][options]', custom_input.options, placeholder: '「,」区切りでオプションを設定できます', class: 'form-control'
