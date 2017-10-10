@@ -10,27 +10,28 @@
   = f.label :name, "フィールド名"
   = f.text_field :name, class: 'form-control'
 
-  table.table-custom-inputs.table.table-striped
+  table.table-custom-inputs.table
     thead
       tr
         th ラベル名
         th 必須
         th 種別
         th 備考
-        th 順番
         th 削除
     tbody
       - @custom_inputs.each do |custom_input|
         = render 'tr_custom_input_forms', custom_input: custom_input
+
+  p 順番を変更したい場合は、行をドラッグ・ドロップできます
+  p
+    a.edit-custom-inputs.btn.btn-secondary.mr-1[href='#' data-action='add'] 項目を追加
 
   - %i[form_top_html form_bottom_html confirmation_top_html confirmation_bottom_html finished_html].each do |key|
     .form-group
       = f.label key, CustomForm.human_attribute_name(key)
       = f.text_area key, class: 'form-control'
 
-  p
-    a.edit-custom-inputs.btn.btn-secondary.mr-1[href='#' data-action='add'] 項目を追加
-    = f.submit class: 'btn btn-primary pull right'
+  p= f.submit class: 'btn btn-primary pull right'
 
 / out of form
 table.table-blank-value[style='display: none']

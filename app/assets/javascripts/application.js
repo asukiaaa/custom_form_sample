@@ -11,6 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui/core
+//= require jquery-ui/widget
+//= require jquery-ui/position
+//= require jquery-ui/widgets/sortable
 //= require popper
 //= require bootstrap
 //= require rails-ujs
@@ -42,16 +46,6 @@ var CustomFormSettingClass = function() {
     if ($(tableSelector + ' tbody tr').length == 0) addTr()
   }
 
-  var upTr = function(trElement) {
-    var prevTr = trElement.prev()
-    if (prevTr.length != 0) prevTr.before(trElement)
-  }
-
-  var downTr = function(trElement) {
-    var nextTr = trElement.next()
-    if (nextTr.length != 0) nextTr.after(trElement)
-  }
-
   var updateOptionsBox = function(trElement) {
     var optionsBox = trElement.find(optionsBoxSelector)
     if (trElement.find(inputTypeSelector).val().match('(radio_buttons|select|check_boxes)$')) {
@@ -67,9 +61,7 @@ var CustomFormSettingClass = function() {
         e.preventDefault()
         var action = $(this).data().action
         // console.log(action)
-        if      (action == 'up')     { upTr(getParentTr($(this))) }
-        else if (action == 'down')   { downTr(getParentTr($(this))) }
-        else if (action == 'delete') { removeTr(getParentTr($(this))) }
+        if      (action == 'delete') { removeTr(getParentTr($(this))) }
         else if (action == 'add')    { addTr() }
       })
 
@@ -79,6 +71,7 @@ var CustomFormSettingClass = function() {
     },
     initTable: function() {
       $(trSelector).each(function() { updateOptionsBox($(this)) })
+        $(tableSelector).find('tbody').sortable()
     }
   }
 }

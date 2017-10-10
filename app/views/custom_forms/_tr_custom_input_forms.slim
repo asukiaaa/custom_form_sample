@@ -6,7 +6,4 @@ tr.tr-custom-input-forms
     div.options-box= text_area_tag 'custom_input[][options]', custom_input.options, placeholder: '「,」区切りでオプションを設定できます', class: 'form-control'
   td= text_area_tag 'custom_input[][comment]', custom_input.comment, class: 'form-control'
   td
-    a.edit-custom-inputs.btn.btn-secondary.btn-sm.mr-1.mb-1[href='#' data-action='up'] up
-    a.edit-custom-inputs.btn.btn-secondary.btn-sm[href='#' data-action='down'] down
-  td
     a.edit-custom-inputs.btn.btn-secondary.btn-sm[href='#' data-action='delete'] delete
