@@ -1,11 +1,11 @@
 module CustomFormsHelper
-  def custom_form(f, item)
+  def custom_input(f, item)
     contents =
       case item.input_type.to_sym
       when :text_area
         f.text_area(item.attr_names.first, class: 'form-control')
       when :select
-        f.select(item.attr_names.first, item.options.split(','))
+        f.input(item.attr_names.first, as: :select, collection: item.options.split(','), input_html: { class: 'form-control' }, label: false, include_blank: '選択してください')
       when :radio_buttons
         f.collection_radio_buttons(item.attr_names.first, item.options.split(','), :to_s, :to_s)
       when :check_boxes

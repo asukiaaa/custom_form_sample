@@ -56,9 +56,11 @@ class CustomInput < ApplicationRecord
   private
 
   def input_type_value(value_hash)
-    case input_type.to_sym
-    when :last_first_name
+    case input_type.to_s
+    when /last_first_name\Z/
       value_hash.values.join(' ')
+    when /check_boxes\Z/
+      value_hash.values.first.join(',')
     else
       value_hash.values.first
     end

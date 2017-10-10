@@ -1,6 +1,6 @@
 - label_text = item.label
 - label_text = label_text + '（必須）' if item.required
 .form-group
-  = f.label item.attr_names.first, label_text
+  div= f.label item.attr_names.first, label_text
   == contents
   = item.comment.html_safe if item.comment.present?

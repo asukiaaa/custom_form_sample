@@ -7,8 +7,9 @@
       ul
         - @custom_form.errors.full_messages.each do |message|
           li= message
-  = f.label :name, "フィールド名"
-  = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :name, "フィールド名"
+    = f.text_field :name, class: 'form-control'
 
   table.table-custom-inputs.table
     thead
