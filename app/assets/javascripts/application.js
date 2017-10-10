@@ -19,6 +19,8 @@
 //= require bootstrap
 //= require rails-ujs
 //= require turbolinks
+//= require moment
+//= require fullcalendar
 //= require_tree .
 
 var CustomFormSettingClass = function() {

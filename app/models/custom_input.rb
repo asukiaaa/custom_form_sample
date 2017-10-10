@@ -5,6 +5,7 @@ class CustomInput < ApplicationRecord
     last_first_name: { name: '姓名別氏名' },
     kana_text_field: { name: 'テキスト（カタカナ）',
                        validates_kana_format: true },
+    calendar_date: { name: '日付（カレンダー）' },
     select: { name: 'セレクト（単一選択）' },
     radio_buttons: { name: 'ラジオ（単一選択）' },
     check_boxes: { name: 'チェックボックス（複数選択）' },

@@ -1,0 +1,44 @@
+- key = item.attr_names.first
+= f.hidden_field key
+div[id="calendar-#{key}"]
+
+javascript:
+  (function() {
+    var calendarElement = $("#calendar-#{key}")
+    var inputElement = $("input[name='input[#{item.attr_names.first}]']")
+    var selectedDay = null
+    var preSetValue = inputElement.val()
+
+    function initEvent(date) {
+      console.log('init event', date)
+      var events = calendarElement.fullCalendar('renderEvent', {
+        id: 1,
+        title: '選択中',
+        start: date,
+        color: '#acf',
+      }, true) // set true to prevent removing event
+      calendarElement.fullCalendar('gotoDate', date)
+      return events[0]
+    }
+
+    function setInputValue(value) {
+      inputElement.val(value)
+    }
+
+    calendarElement.fullCalendar({
+      viewRender: function() {
+        if (preSetValue.length != 0 && selectedDay == null) {
+          selectedDay = initEvent(preSetValue)
+        }
+      },
+      dayClick: function(date, e, view) {
+        setInputValue(date.format('YYYY-MM-DD'))
+        if (selectedDay == null) {
+          selectedDay = initEvent(date)
+        } else {
+          selectedDay.start = date
+          calendarElement.fullCalendar('rerenderEvents')
+        }
+      },
+    })
+  })()

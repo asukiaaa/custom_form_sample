@@ -15,4 +15,5 @@
  *= require jquery-ui/theme
  *= require jquery-ui/sortable
  *= require_self
+ *= require fullcalendar
  */

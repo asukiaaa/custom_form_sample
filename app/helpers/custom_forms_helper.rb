@@ -6,6 +6,8 @@ module CustomFormsHelper
         f.text_area(item.attr_names.first, class: 'form-control')
       when :select
         f.input(item.attr_names.first, as: :select, collection: item.options.split(','), input_html: { class: 'form-control' }, label: false, include_blank: '選択してください')
+      when :calendar_date
+        render(partial: 'shared/inputs/calendar', locals: { f: f, item: item })
       when :radio_buttons
         f.collection_radio_buttons(item.attr_names.first, item.options.split(','), :to_s, :to_s)
       when :check_boxes
