@@ -4,7 +4,7 @@ ja:
       custom_form: カスタムフォーム
     attributes:
       custom_form:
-        name: mフォーム名
+        name: フォーム名
         form_top_html: フォーム上説明文
         form_bottom_html: フォーム下部説明文
         confirmation_top_html: 確認上部説明文
