@@ -7,5 +7,16 @@ p
 p
   strong
     | Data:
-  pre= JSON.pretty_generate(JSON.parse(@form_record.data))
+  table.table.table-striped
+    thead
+      th ラベル
+      th 値
+      th 形式
+    tbody
+      - @form_record.record_inputs.each do |i|
+        tr
+          td= i.label
+          td= i.value
+          td= i.input_type
+
 p= link_to 'Index', [@custom_form, :form_records], class: 'btn btn-secondary'

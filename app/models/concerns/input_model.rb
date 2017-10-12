@@ -29,7 +29,7 @@ module InputModel
       def to_data
         @items.map do |item|
           value_hash = item.attr_names.map { |n| [n, send(n)] }.to_h
-          item.field_info(value_hash)
+          item.field_input_params(value_hash)
         end
       end
     end

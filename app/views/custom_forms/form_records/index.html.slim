@@ -11,7 +11,10 @@ table.table.table-striped
     - @form_records.each do |form_record|
       tr
         td
-          pre= JSON.pretty_generate(JSON.parse(form_record.data))
+          dl
+            - form_record.record_inputs.each do |i|
+              dt #{i.label}(#{i.input_type})
+              dd= i.value
         td
           = link_to 'Show', [@custom_form, form_record], class: 'btn btn-secondary btn-sm mr-1'
           = link_to 'Destroy', [@custom_form, form_record], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning btn-sm'

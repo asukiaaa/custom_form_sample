@@ -11,7 +11,7 @@ table.table.table-striped
         td= data[:label]
         td= simple_format(data[:value])
 
-= simple_form_for(@record_data, url: [@custom_form, @form_record], method: :post) do |f|
+= simple_form_for(@record_data, url: [@custom_form, :form_records], method: :post) do |f|
   .div[style='display:none']
     = render partial: 'inputs', locals: { f: f, custom_inputs: @custom_form.custom_inputs }
   .form-group

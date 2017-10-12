@@ -36,10 +36,11 @@ class CustomInput < ApplicationRecord
     end
   end
 
-  def field_info(value_hash)
+  def field_input_params(value_hash)
     {label: label,
      value: input_type_value(value_hash),
-     input_type: input_type}
+     input_type: input_type,
+     order: order}
   end
 
   def init_input(input_model)

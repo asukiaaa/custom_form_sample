@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006074108) do
+ActiveRecord::Schema.define(version: 20171010082814) do
 
   create_table "custom_forms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -40,12 +40,23 @@ ActiveRecord::Schema.define(version: 20171006074108) do
 
   create_table "form_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "custom_form_id"
-    t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["custom_form_id"], name: "index_form_records_on_custom_form_id"
   end
 
+  create_table "record_inputs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "form_record_id"
+    t.string "label"
+    t.text "value"
+    t.string "input_type"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["form_record_id"], name: "index_record_inputs_on_form_record_id"
+  end
+
   add_foreign_key "custom_inputs", "custom_forms"
   add_foreign_key "form_records", "custom_forms"
+  add_foreign_key "record_inputs", "form_records"
 end

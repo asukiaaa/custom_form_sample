@@ -10,8 +10,8 @@ class CustomForms::FormRecordsController < ApplicationController
   end
 
   def new
-    @form_record = FormRecord.new
     @record_data = @custom_form.new
+    @form_record = @custom_form.form_records.new
   end
 
   def confirmation
@@ -23,9 +23,10 @@ class CustomForms::FormRecordsController < ApplicationController
 
   def create
     @record_data = new_record_data
+    @form_record = @custom_form.form_records.new
     if @record_data.valid? and params[:edit_again].blank?
-      @form_record.data = @record_data.to_data.to_json
       @form_record.save
+      @record_data.to_data.each{|input_data| @form_record.record_inputs.create(input_data)}
       redirect_to [:finished, @custom_form, @form_record]
     else
       render :new
@@ -55,7 +56,6 @@ class CustomForms::FormRecordsController < ApplicationController
   end
 
   def new_record_data
-    @form_record = @custom_form.form_records.new
     record_data = @custom_form.new
     record_data.input_attributes = form_record_params
     record_data
