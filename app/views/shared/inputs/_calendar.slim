@@ -25,6 +25,7 @@ javascript:
       inputElement.val(value)
     }
 
+    calendarElement.fullCalendar('destroy').empty() // remove old calendar to avoid duplicatoin
     calendarElement.fullCalendar({
       viewRender: function() {
         if (preSetValue.length != 0 && selectedDay == null) {
