@@ -14,7 +14,7 @@ p= link_to 'Index', [@custom_form, :form_records], class: 'btn btn-secondary'
         - @record_data.errors.full_messages.each do |message|
           li
             = message
-  = render partial: 'inputs', locals: { f: f, custom_inputs: @custom_form.custom_inputs }
+  = render partial: 'inputs', locals: { f: f, custom_inputs: @custom_form.custom_inputs, data: @record_data }
   .form-group
     = f.submit '確認に進む', class: 'btn btn-primary'
 

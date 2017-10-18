@@ -1,2 +1,3 @@
+- data ||= nil
 - custom_inputs.each do |item|
-  = custom_input f, item
+  = render partial: 'shared/inputs/input', locals: { f: f, item: item, data: data }

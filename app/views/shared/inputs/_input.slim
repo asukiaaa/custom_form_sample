@@ -1,0 +1,22 @@
+= render layout: 'shared/inputs/layout', locals: { f: f, item: item, data: data } do
+  - case item.input_type.to_sym
+  - when :text_area
+    = f.text_area(item.attr_names.first, class: 'form-control')
+  - when :select
+    = f.input(item.attr_names.first, as: :select, collection: item.options.split(','), input_html: { class: 'form-control' }, label: false, include_blank: '選択してください')
+  - when :calendar_date
+    = render partial: 'shared/inputs/calendar', locals: { f: f, key: item.attr_names.first }
+  - when :radio_buttons
+    = f.collection_radio_buttons(item.attr_names.first, item.options.split(','), :to_s, :to_s)
+  - when :check_boxes
+    = f.collection_check_boxes(item.attr_names.first, item.options.split(','), :to_s, :to_s)
+  - when :last_first_name
+    = content_tag(:div, class: 'form-inline') do
+      = content_tag(:div, class: 'mr-2') do
+        | 姓
+        = f.text_field(item.attr_names.first, class: 'form-control')
+      = content_tag(:div) do
+        | 名
+        = f.text_field(item.attr_names.second, class: 'form-control')
+  - else
+    = f.text_field(item.attr_names.first, class: 'form-control')
