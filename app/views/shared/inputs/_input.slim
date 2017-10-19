@@ -3,7 +3,7 @@
   - when :text_area
     = f.text_area(item.attr_names.first, class: 'form-control')
   - when :select
-    = f.input(item.attr_names.first, as: :select, collection: item.options.split(','), input_html: { class: 'form-control' }, label: false, include_blank: '選択してください')
+    = f.input(item.attr_names.first, as: :select, collection: item.options.split(','), input_html: { class: 'form-control' }, label: false, include_blank: '選択してください', error: false)
   - when :calendar_date
     = render partial: 'shared/inputs/calendar', locals: { f: f, key: item.attr_names.first }
   - when :radio_buttons
