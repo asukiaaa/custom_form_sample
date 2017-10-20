@@ -14,7 +14,7 @@ class CustomInput < ApplicationRecord
 
   belongs_to :custom_form
   validates_presence_of :label, :input_type
-  validates_presence_of :options, if: 'input_type == "select"'
+  validates :options, presence: true, if: proc { input_type.match(/(boxes|buttons|select)\Z/) }
 
   def attr_names
     base_name = "custom_input_#{id}"
